@@ -1,0 +1,28 @@
+<h1><%= @collection["name"] %></h1>
+
+<strong><label> Hit Die: </label></strong></br>
+<%= @collection["hit_die"] %></br>
+</br>
+
+<strong><label> Proficiency Choices (Choose <%= @collection["proficiency_choices"][0]["choose"] %>): </label></strong></br>
+<ul>
+<% @collection["proficiency_choices"][0]["from"].each do |choice| %>
+<li><%= choice["name"] %></li>
+<% end %>
+</ul>
+
+<strong><label>Proficiencies:</label></strong>
+<ul>
+  <% @collection["proficiencies"].each do |choice| %>
+  <li><%= choice["name"] %></li>
+  <% end %>
+</ul>
+
+<strong><label>Saving Throws:</label></strong>
+<ul>
+  <% @collection["saving_throws"].each do |choice| %>
+  <li><%= choice["name"] %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Back", class_names_path %>

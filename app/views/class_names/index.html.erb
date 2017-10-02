@@ -1,0 +1,7 @@
+<h1>Classes:</h1>
+
+<ul>
+<% @class_names.each do |classname| %>
+<li><%= link_to classname.name, class_name_path(classname) %></li>
+<% end %>
+</ul>
