@@ -1,0 +1,17 @@
+<h1><%= @collection["name"] %></h1>
+
+<strong><label>Description:</label></strong>
+<p><%= @collection["desc"][0] %></p>
+
+<% if @collection["higher_level"] %>
+<strong><label>Higher Level:</label></strong>
+<p><%= @collection["higher_level"][0] %></p>
+<% end %>
+
+<strong><label>Range:</label></strong>
+<p><%= @collection["range"] %></p>
+
+<strong><label>Concentration?</label></strong>
+<p><%= @collection["concentration"] %></p>
+
+<%= link_to "Back", spells_path %>

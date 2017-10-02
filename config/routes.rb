@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :spells, only: [:index, :show]
+  resources :traits
+  resources :races
+  resources :spells
+  
   root 'users#index'
   
   patch '/campaigns/:campaign_id/characters/:character_id/remove_campaign', to: 'characters#remove_campaign'
