@@ -2,16 +2,22 @@ class CharactersController < ApplicationController
   before_action :set_character, only: [:show, :edit, :update, :destroy]
 
   def index
-    @characters = Character.all
+    redirect_to user_path(params[:user_id])
   end
 
   def new
+    @user = User.find(params[:user_id])
     @character = Character.new
   end
 
   def create
     @character = Character.new(character_params)
-    @character.save ? (redirect_to character_path(@character)) : (render :new)
+    @character.player = User.find(params[:user_id])
+    if @character.save
+      redirect_to user_path(@character.player)
+    else
+      render :new
+    end
   end
 
   def show
@@ -21,12 +27,26 @@ class CharactersController < ApplicationController
   end
 
   def update
-    @character.update(character_params) ? (redirect_to character_path(@character)) : (render :edit)
+    byebug
+    @character.update(character_params) ? (redirect_to user_character_path(@character.player, @character)) : (render :edit)
   end
 
   def destroy
     @character.destroy
-    redirect_to characters_path
+    redirect_to user_path(params[:user_id])
+  end
+
+  def join_campaign
+    character = Character.find(params[:character_id])
+    character.update(campaign: Campaign.find(params[:character][:campaign_id]))
+    redirect_to user_character_path(character.player, character)
+  end
+
+  def remove_campaign
+    character = Character.find(params[:character_id])
+    character.update(campaign: Campaign.find_by(name:"No Campaign"))
+    campaign = Campaign.find(params[:campaign_id])
+    redirect_to user_campaign_path(campaign.user, campaign)
   end
 
 
@@ -38,7 +58,7 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:name, :race, :class, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id)
+    params.require(:character).permit(:level, :name, :race, :class_name, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id)
   end
 
 end

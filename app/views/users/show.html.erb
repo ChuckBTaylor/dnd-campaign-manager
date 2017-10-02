@@ -10,11 +10,20 @@
 <div class="">
 <h3><%= @user.name %>'s characters</h3>
   <% @user.characters.each do |c| %>
-    <%= link_to c.name, character_path(c) %>
+    <%= link_to c.name, user_character_path(@user, c) %>
+    <br>
   <% end %>
 </div>
-"Create New Character"
-
+<h4><%= link_to "Create New Character", new_user_character_path(@user) %></h4>
+<% if @user.campaigns.any? %>
+  <h3>Campaigns DMing:</h3>
+  <ul>
+    <% @user.campaigns.each do |campaign| %>
+      <li><%= link_to campaign.name, user_campaign_path(@user, campaign) %></li>
+    <% end %>
+  </ul>
+<% end %>
+<h4><%= link_to "Create New Campaign", new_user_campaign_path(@user) %></h4>
 <%= form_tag "/users/#{@user.id}", method:'delete' do %>
   <%= submit_tag "Delete User" %>
 <% end %>

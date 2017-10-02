@@ -1,28 +1,40 @@
 <h1><%= @character.name %>'s page</h1>
 
-<h2>Player: <%= link_to @character.player.name, user_path(@character.player) %></h2>
+<h2>Player: <%= link_to @character.player.try(:name), user_path(@character.player) %></h2>
+<% if @character.campaign %>
+  <h2>Campaign: <%= link_to @character.campaign.name, user_campaign_path(@character.player, @character.campaign) %></h2>
+<% end %>
 
-<h2>Campaign: </h2>
+<% if @character.campaign_id == 1%>
+  <p>Join Campaign:
+  <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/join_campaign", method:'patch' do %>
+    <%= select_tag "character[campaign_id]", options_from_collection_for_select(Campaign.all, "id", "name") %>
+    <br>
+  </p>
+    <%= submit_tag %>
+  <% end %>
+<% end %>
 
 <h3>Info:</h3>
 Level: <%= @character.level %>
 <br>
-Race: <% @character.race %>
+Race: <%= @character.race %>
 <br>
-Class: <%= @character.class %>
+Class: <%= @character.class_name %>
 <br>
-Strength: <%= @character.strength %>
+Strength: <%= @character.strength %> (<%= (@character.strength.to_i/2) - 5 %>)
 <br>
-Dexterity: <%= @character.dexterity %>
+Dexterity: <%= @character.dexterity %> (<%= (@character.dexterity.to_i/2) - 5 %>)
 <br>
-Constitution: <%= @character.constitution %>
+Constitution: <%= @character.constitution %> (<%= (@character.constitution.to_i/2) - 5 %>)
 <br>
-Intelligence: <%= @character.intelligence %>
+Intelligence: <%= @character.intelligence %> (<%= (@character.intelligence.to_i/2) - 5 %>)
 <br>
-Wisdom: <%= @character.wisdom %>
+Wisdom: <%= @character.wisdom %> (<%= (@character.wisdom.to_i/2) - 5 %>)
 <br>
-Charisma: <%= @character.charisma %>
+Charisma: <%= @character.charisma %> (<%= (@character.charisma.to_i/2) - 5 %>)
 <br>
 <br>
-Edit character if owned <br>  
-delete
+<%= link_to "Edit #{@character.name}", edit_user_character_path(@character) %>
+<br>
+<%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
