@@ -14,4 +14,10 @@
 <strong><label>Concentration?</label></strong>
 <p><%= @collection["concentration"] %></p>
 
+<strong><label>Classes:</label></strong>
+<% @collection["classes"].each do |class_name| %>
+  | <%= class_name["name"] %> |
+<% end %>
+<br>
+
 <%= link_to "Back", spells_path %>

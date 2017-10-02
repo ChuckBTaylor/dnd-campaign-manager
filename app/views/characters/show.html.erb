@@ -1,3 +1,4 @@
+
 <h1><%= @character.name %>'s page</h1>
 
 <h2>Player: <%= link_to @character.player.try(:name), user_path(@character.player) %></h2>
@@ -35,6 +36,31 @@ Wisdom: <%= @character.wisdom %> (<%= (@character.wisdom.to_i/2) - 5 %>)
 Charisma: <%= @character.charisma %> (<%= (@character.charisma.to_i/2) - 5 %>)
 <br>
 <br>
+<% if @character.spells.any? %>
+  <div class="">
+    <h3>Known Spells: </h3>
+    <ul>
+      <% @character.spells.each do |spell| %>
+        <li>
+          <%= link_to spell.name, spell %> | <%= link_to "Forget Spell", "/users/#{@character.player.id}/characters/#{@character.id}/forget_spell/#{spell.id}", method:'delete' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="">
+  <h3>Learn Spell</h3>
+    <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/learn_spell", method:'patch' do %>
+      <%= text_field_tag "spell",'',{list:'spell_autocomplete', placeholder:'Type Spell Name'} %>
+      <%= submit_tag "Add Spell"%>
+    <% end %>
+</div>
 <%= link_to "Edit #{@character.name}", edit_user_character_path(@character) %>
 <br>
 <%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
+
+<datalist id="spell_autocomplete">
+  <% Spell.all.each do |spell| %>
+    <option value="<%= spell.name %>"></option>
+  <% end %>
+</datalist>
