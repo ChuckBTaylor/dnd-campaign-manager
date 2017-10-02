@@ -9,3 +9,4 @@ x = Api.new
 x.populate_table("spell")
 x.populate_table("race")
 x.populate_table("trait")
+x.populate_class_name

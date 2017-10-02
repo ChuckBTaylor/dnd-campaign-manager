@@ -23,5 +23,12 @@ class Api
     end
   end
 
+  def populate_class_name
+    data = self.get_skills_from_api("classes")
+    self.parse_data(data).each do |property|
+      ClassName.create(property)
+    end
+  end
+
 
 end
