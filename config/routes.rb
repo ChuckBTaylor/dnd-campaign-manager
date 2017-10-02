@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :traits
+  resources :races
   resources :spells
   root 'users#index'
   resources :campaigns
