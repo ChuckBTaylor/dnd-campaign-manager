@@ -1,0 +1,20 @@
+<h1><%= @user.name %>'s Page</h1>
+<div class="">
+  Age: <%= @user.age %>
+  <br>
+  Gender: <%= @user.gender %>
+  <br>
+  E-mail: <%= @user.email %>
+  <br>
+</div>
+<div class="">
+<h3><%= @user.name %>'s characters</h3>
+  <% @user.characters.each do |c| %>
+    <%= link_to c.name, character_path(c) %>
+  <% end %>
+</div>
+"Create New Character"
+
+<%= form_tag "/users/#{@user.id}", method:'delete' do %>
+  <%= submit_tag "Delete User" %>
+<% end %>

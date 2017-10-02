@@ -1,0 +1,28 @@
+<h1><%= @character.name %>'s page</h1>
+
+<h2>Player: <%= link_to @character.player.name, user_path(@character.player) %></h2>
+
+<h2>Campaign: </h2>
+
+<h3>Info:</h3>
+Level: <%= @character.level %>
+<br>
+Race: <% @character.race %>
+<br>
+Class: <%= @character.class %>
+<br>
+Strength: <%= @character.strength %>
+<br>
+Dexterity: <%= @character.dexterity %>
+<br>
+Constitution: <%= @character.constitution %>
+<br>
+Intelligence: <%= @character.intelligence %>
+<br>
+Wisdom: <%= @character.wisdom %>
+<br>
+Charisma: <%= @character.charisma %>
+<br>
+<br>
+Edit character if owned <br>  
+delete
