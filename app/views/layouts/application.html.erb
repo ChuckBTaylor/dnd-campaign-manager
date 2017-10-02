@@ -13,6 +13,7 @@
     <%= link_to "User Index", users_path %>
   </nav>
   <body>
+    <%= flash[:titties] if flash[:titties] %>
     <%= yield %>
   </body>
 </html>

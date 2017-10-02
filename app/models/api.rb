@@ -6,6 +6,8 @@ class Api
   	collection = JSON.parse(json)
   end
 
+
+
   def parse_data(data)
     data["results"].map do |result|
       {
