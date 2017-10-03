@@ -1,65 +1,66 @@
-<% if @character.errors.any? %>
-  <ul>
-  <% @character.errors.full_messages.each do |fm| %>
-    <li><%= fm %></li>
+<div>
+  <% if @character.errors.any? %>
+    <ul>
+    <% @character.errors.full_messages.each do |fm| %>
+      <li><%= fm %></li>
+    <% end %>
+    </ul>
   <% end %>
-  </ul>
-<% end %>
+</div>
 
+<div>
 <% unless @rolled_dice %>
   <%= form_tag "/users/#{@user.id}/characters/new", method:'get' do %>
     <%= hidden_field_tag "dice_roll" %>
     <%= submit_tag "Roll Dice", class: 'btn btn-success' %>
   <% end %>
 <% end %>
-
+</div>
+<div>
 <% if @rolled_dice %>
   <% counter = 1 %>
   <% @rolled_dice.map do |array| %>
     <%= "Roll Set #{counter}: #{array} = " %><% array.shift if array.size >= 4 %><%= array.reduce(:+)%></br>
     <% counter += 1 %>
   <% end %>
-<% end %>
-
-</br>
-
+</div>
 <% if @rolled_dice %>
-  <%= form_for [@user, @character], url: url_for(controller: 'characters', action: 'create') do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <br>
-    <%= f.label :level %>
-    <%= f.number_field :level %>
-    <br>
-    <%= f.label :class %>
-    <%= f.collection_select :class_name, ClassName.all, :name, :name %>
-    <br>
-    <%= f.label :race %>
-    <%= f.collection_select :race, Race.all, :name, :name %>
-    <br>
-    <%= f.label :strength %>
-    <%= f.number_field :strength %>
-    <br>
-    <%= f.label :dexterity %>
-    <%= f.number_field :dexterity %>
-    <br>
-    <%= f.label :constitution %>
-    <%= f.number_field :constitution %>
-    <br>
-    <%= f.label :intelligence %>
-    <%= f.number_field :intelligence %>
-    <br>
-    <%= f.label :wisdom %>
-    <%= f.number_field :wisdom %>
-    <br>
-    <%= f.label :charisma %>
-    <%= f.number_field :charisma %>
-    <br>
-    <%= f.label :campaign %>
-    <%= f.collection_select :campaign_id, Campaign.all, :id, :name %>
-    <br>
-
-    </br>
-    <%= f.submit %>
-  <% end %>
+  <div>
+    <%= form_for [@user, @character], url: url_for(controller: 'characters', action: 'create') do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <br>
+      <%= f.label :level %>
+      <%= f.number_field :level %>
+      <br>
+      <%= f.label :class %>
+      <%= f.collection_select :class_name, ClassName.all, :name, :name %>
+      <br>
+      <%= f.label :race %>
+      <%= f.collection_select :race, Race.all, :name, :name %>
+      <br>
+      <%= f.label :strength %>
+      <%= f.number_field :strength %>
+      <br>
+      <%= f.label :dexterity %>
+      <%= f.number_field :dexterity %>
+      <br>
+      <%= f.label :constitution %>
+      <%= f.number_field :constitution %>
+      <br>
+      <%= f.label :intelligence %>
+      <%= f.number_field :intelligence %>
+      <br>
+      <%= f.label :wisdom %>
+      <%= f.number_field :wisdom %>
+      <br>
+      <%= f.label :charisma %>
+      <%= f.number_field :charisma %>
+      <br>
+      <%= f.label :campaign %>
+      <%= f.collection_select :campaign_id, Campaign.all, :id, :name %>
+      <br>
+      <%= f.submit %>
+    <% end %>
+  </div>
 <% end %>

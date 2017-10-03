@@ -1,6 +1,7 @@
 class CharactersController < ApplicationController
   before_action :check_login
   before_action :set_character, only: [:show, :edit, :update, :destroy]
+  helper :characters
 
 
   def index
