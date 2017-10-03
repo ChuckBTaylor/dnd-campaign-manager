@@ -1,4 +1,4 @@
-<h1><%= @user.name %>'s Page</h1>
+<div><h1><%= @user.name %>'s Page</h1></div>
 <div class="">
   Username: <%= @user.username %>
   <br>
@@ -16,20 +16,22 @@
     <br>
   <% end %>
 </div>
-<% if @user == current_user%>
-  <h4><%= link_to "Create New Character", new_user_character_path(@user) %></h4>
-<% end %>
-<% if @user.campaigns.any? %>
-  <h3>Campaigns DMing:</h3>
-  <ul>
-    <% @user.campaigns.each do |campaign| %>
-      <li><%= link_to campaign.name, user_campaign_path(@user, campaign) %></li>
-    <% end %>
-  </ul>
-<% end %>
-<% if @user == current_user %>
-  <h4><%= link_to "Create New Campaign", new_user_campaign_path(@user) %></h4>
-  <%= form_tag "/users/#{@user.id}", method:'delete' do %>
-    <%= submit_tag "Delete User" %>
+<div>
+  <% if @user == current_user%>
+    <h4><%= link_to "Create New Character", new_user_character_path(@user) %></h4>
   <% end %>
-<% end %>
+  <% if @user.campaigns.any? %>
+    <h3>Campaigns DMing:</h3>
+    <ul>
+      <% @user.campaigns.each do |campaign| %>
+        <li><%= link_to campaign.name, user_campaign_path(@user, campaign) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <% if @user == current_user %>
+    <h4><%= link_to "Create New Campaign", new_user_campaign_path(@user) %></h4>
+    <%= form_tag "/users/#{@user.id}", method:'delete' do %>
+      <%= submit_tag "Delete User" %>
+    <% end %>
+  <% end %>
+</div>

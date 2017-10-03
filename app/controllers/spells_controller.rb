@@ -10,4 +10,12 @@ class SpellsController < ApplicationController
     @collection = JSON.parse(json)
   end
 
+  def search
+    @spells = Spell.all.select do |spell|
+      spell.name.match(/#{params[:search]}/i)
+    end
+    @spells = @spells.size == 0 ? Spell.all : @spells
+    render :index
+  end
+
 end

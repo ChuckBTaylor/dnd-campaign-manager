@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :class_names
-  resources :traits
-  resources :races
-  resources :spells
+
+  get '/spells/search', to: 'spells#search'
 
   root 'statics#home'
 
@@ -19,6 +17,11 @@ Rails.application.routes.draw do
   patch "/users/:user_id/characters/:character_id/learn_spell", to: 'characters#learn_spell'
 
   delete "/users/:user_id/characters/:character_id/forget_spell/:spell_id", to: 'characters#forget_spell'
+  
+  resources :class_names, only: [:index, :show]
+  resources :traits, only: [:index, :show]
+  resources :races, only: [:index, :show]
+  resources :spells, only: [:index, :show]
 
   resources :users do
     resources :characters, except: :index
