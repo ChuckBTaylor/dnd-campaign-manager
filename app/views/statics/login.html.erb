@@ -1,9 +1,11 @@
-<%= form_tag('sessions/create') do %>
-<label>Name:</label></br>
-<%= text_field_tag :name %></br>
-</br>
-<label>Password:</label></br>
-<%= password_field_tag :password %></br>
-</br>
-<%= submit_tag "Submit" %>
-<% end %>
+<div>
+  <%= form_tag('sessions/create') do %>
+  <label>Username:</label></br>
+  <%= text_field_tag :username %></br>
+  </br>
+  <label>Password:</label></br>
+  <%= password_field_tag :password %></br>
+  </br>
+  <%= submit_tag "Submit" %>
+  <% end %>
+</div>

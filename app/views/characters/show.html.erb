@@ -4,9 +4,7 @@
 <h2>Player: <%= link_to @character.player.try(:name), user_path(@character.player) %></h2>
 <% if @character.campaign.name != "No Campaign" %>
   <h2>Campaign: <%= link_to @character.campaign.name, user_campaign_path(@character.player, @character.campaign) %></h2>
-<% end %>
-
-<% if @character.campaign_id == 1%>
+<% else%>
   <p>Join Campaign:
   <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/join_campaign", method:'patch' do %>
     <%= select_tag "character[campaign_id]", options_from_collection_for_select(Campaign.all, "id", "name") %>
@@ -41,9 +39,12 @@ Charisma: <%= @character.charisma %> (<%= (@character.charisma.to_i/2) - 5 %>)
     <h3>Known Spells: </h3>
     <ul>
       <% @character.spells.each do |spell| %>
-        <li>
-          <%= link_to spell.name, spell %> | <%= link_to "Forget Spell", "/users/#{@character.player.id}/characters/#{@character.id}/forget_spell/#{spell.id}", method:'delete' %>
-        </li>
+
+          <li>
+            <%= link_to spell.name, spell %>  <% if @character.player == current_user %> | <%= link_to "Forget Spell", "/users/#{@character.player.id}/characters/#{@character.id}/forget_spell/#{spell.id}", method:'delete' %>
+            <% end %>
+          </li>
+
       <% end %>
     </ul>
   </div>
