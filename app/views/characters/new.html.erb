@@ -7,20 +7,21 @@
     </ul>
   <% end %>
 </div>
-<div>
-  <% unless @rolled_dice %>
-    <%= form_tag "/users/#{@user.id}/characters/new", method:'get' do %>
-      <%= hidden_field_tag "dice_roll" %>
-      <%= submit_tag "Roll Dice" %>
-    <% end %>
-  <% end %>
 
-  <% if @rolled_dice %>
-    <% counter = 1 %>
-    <% @rolled_dice.map do |array| %>
-      <%= "Roll Set #{counter}: #{array} = " %><% array.shift if array.size >= 4 %><%= array.reduce(:+)%></br>
-      <% counter += 1 %>
-    <% end %>
+<div>
+<% unless @rolled_dice %>
+  <%= form_tag "/users/#{@user.id}/characters/new", method:'get' do %>
+    <%= hidden_field_tag "dice_roll" %>
+    <%= submit_tag "Roll Dice", class: 'btn btn-success' %>
+  <% end %>
+<% end %>
+</div>
+<div>
+<% if @rolled_dice %>
+  <% counter = 1 %>
+  <% @rolled_dice.map do |array| %>
+    <%= "Roll Set #{counter}: #{array} = " %><% array.shift if array.size >= 4 %><%= array.reduce(:+)%></br>
+    <% counter += 1 %>
   <% end %>
 </div>
 <% if @rolled_dice %>
