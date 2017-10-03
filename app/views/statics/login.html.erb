@@ -1,11 +1,27 @@
-<div>
-  <%= form_tag('sessions/create') do %>
-  <label>Username:</label></br>
-  <%= text_field_tag :username %></br>
-  </br>
-  <label>Password:</label></br>
-  <%= password_field_tag :password %></br>
-  </br>
-  <%= submit_tag "Submit" %>
-  <% end %>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <div class='red pull-left pb3'>
+        <%= form_tag('sessions/create') do %>
+          <label>Username:</label></br>
+          <%= text_field_tag :username %></br>
+          </br>
+          <label>Password:</label></br>
+          <%= password_field_tag :password %></br>
+          </br>
+          <%= submit_tag "Submit" %>
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>

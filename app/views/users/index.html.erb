@@ -1,9 +1,8 @@
 <div><h1>All Users</h1></div>
 <div>
-  <% @users.each do |u| %>
-    <%= link_to u.name, user_path(u) %>
-    <br>
-  <% end %>
+<% @users.each do |u| %>
+  <%= link_to u.name, user_path(u) %>
   <br>
-  <%= link_to "Create User", new_user_path %>
-</div>
+<% end %>
+<br>
+<%= link_to "Create User", new_user_path %>

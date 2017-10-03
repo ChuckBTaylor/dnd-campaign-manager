@@ -14,8 +14,8 @@
     <ul>
       <% @campaign.characters.each do |character| %>
       <li><%= link_to character.name, user_character_path(character.player, character) %>
-        <% if character.player == current_user || @campaign.user == current_user %>
-        <%= link_to "Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
+        <% if character.player == current_user || @campaign.user == current_user %> |
+        <%= link_to " Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
         <% end %>
       </li>
       <% end %>

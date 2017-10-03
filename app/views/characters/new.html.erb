@@ -21,8 +21,9 @@
   <% counter = 1 %>
   <% @rolled_dice.map do |array| %>
     <%= "Roll Set #{counter}: #{array} = " %><% array.shift if array.size >= 4 %><%= array.reduce(:+)%></br>
-    <% counter += 1 %>
+  <% counter += 1 %>
   <% end %>
+<% end %>
 </div>
 <% if @rolled_dice %>
   <div>
