@@ -2,7 +2,6 @@ class CharactersController < ApplicationController
   before_action :check_login
   before_action :set_character, only: [:show, :edit, :update, :destroy]
 
-@@rolled_dice
 
   def index
     redirect_to user_path(params[:user_id])
@@ -108,7 +107,7 @@ class CharactersController < ApplicationController
   end
 
   def roll_dice
-    @@rolled_dice = 6.times.map do
+    @@rolled_dice ||= 6.times.map do
       4.times.map{ rand(1..6) }.sort
     end
   end
