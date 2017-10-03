@@ -6,13 +6,15 @@
 <ul>
   <% @campaign.characters.each do |character| %>
     <li><%= link_to character.name, user_character_path(character.player, character) %>
-    <% if @campaign.name != "No Campaign" %>
+    <% if character.player == current_user || @campaign.user == current_user %>
       <%= link_to "Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
     <% end %>
     </li>
   <% end %>
 </ul>
 <br>
-<%= link_to "Edit #{@campaign.name}", edit_user_campaign_path(@campaign.user, @campaign) %>
-<br>
-<%= link_to "Delete Campaign", "/users/#{@campaign.user.id}/campaigns/#{@campaign.id}", method:'delete' %>
+<% if @campaign.user == current_user %>
+  <%= link_to "Edit #{@campaign.name}", edit_user_campaign_path(@campaign.user, @campaign) %>
+  <br>
+  <%= link_to "Delete Campaign", "/users/#{@campaign.user.id}/campaigns/#{@campaign.id}", method:'delete' %>
+<% end %>

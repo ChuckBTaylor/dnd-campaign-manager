@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   resources :races
   resources :spells
 
-  root 'users#index'
+  root 'statics#home'
 
+  get '/home', to: 'statics#home', as: 'home'
   get '/login', to: 'statics#login', as: 'login'
   post 'sessions/create', to: 'sessions#create'
   delete 'sessions/destroy', to: 'sessions#destroy'
