@@ -1,20 +1,32 @@
+<div>
 <h1><%= @campaign.name %></h1>
+</div>
+<div>
 <h3>DM: <%= link_to @campaign.user.name, user_path(@campaign.user) %></h3>
-<h4>Description:</h4>
-<p><%= @campaign.description %></p>
+</div>
+<div>
+  <h4>Description:</h4>
+  <div>
+    <p><%= @campaign.description %></p>
+  </div>
 <h4>Characters:</h4>
-<ul>
-  <% @campaign.characters.each do |character| %>
-    <li><%= link_to character.name, user_character_path(character.player, character) %>
-    <% if character.player == current_user || @campaign.user == current_user %>
-      <%= link_to "Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
-    <% end %>
-    </li>
-  <% end %>
-</ul>
-<br>
-<% if @campaign.user == current_user %>
-  <%= link_to "Edit #{@campaign.name}", edit_user_campaign_path(@campaign.user, @campaign) %>
+  <div>
+    <ul>
+      <% @campaign.characters.each do |character| %>
+      <li><%= link_to character.name, user_character_path(character.player, character) %>
+        <% if character.player == current_user || @campaign.user == current_user %>
+        <%= link_to "Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
   <br>
-  <%= link_to "Delete Campaign", "/users/#{@campaign.user.id}/campaigns/#{@campaign.id}", method:'delete' %>
-<% end %>
+  <% if @campaign.user == current_user %>
+    <div>
+      <%= link_to "Edit #{@campaign.name}", edit_user_campaign_path(@campaign.user, @campaign) %>
+      <br>
+      <%= link_to "Delete Campaign", "/users/#{@campaign.user.id}/campaigns/#{@campaign.id}", method:'delete' %>
+    </div>
+  <% end %>
+</div>

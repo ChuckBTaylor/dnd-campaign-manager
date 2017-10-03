@@ -1,15 +1,17 @@
-<% if @campaign.errors.any? %>
-  <ul>
-    <% @campaign.errors.full_messages.each do |fm| %>
-      <li><%= fm %></li>
-    <% end %>
-  </ul>
-<% end %>
-<% byebug %>
-<%= form_for @campaign do |f| %>
-  <%= f.hidden_field :user_id %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <br>
-  <%= f.submit %>
-<% end %>
+<div>
+  <% if @campaign.errors.any? %>
+    <ul>
+      <% @campaign.errors.full_messages.each do |fm| %>
+        <li><%= fm %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <% byebug %>
+  <%= form_for @campaign do |f| %>
+    <%= f.hidden_field :user_id %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <br>
+    <%= f.submit %>
+  <% end %>
+</div>

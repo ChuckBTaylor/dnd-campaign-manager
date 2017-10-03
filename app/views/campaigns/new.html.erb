@@ -1,3 +1,4 @@
+<div>
 <% if @campaign.errors.any? %>
   <ul>
     <% @campaign.errors.full_messages.each do |fm| %>
@@ -15,3 +16,4 @@
   <br>
   <%= f.submit %>
 <% end %>
+</div>
