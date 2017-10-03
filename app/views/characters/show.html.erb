@@ -2,7 +2,7 @@
 <h1><%= @character.name %>'s page</h1>
 
 <h2>Player: <%= link_to @character.player.try(:name), user_path(@character.player) %></h2>
-<% if @character.campaign %>
+<% if @character.campaign.name != "No Campaign" %>
   <h2>Campaign: <%= link_to @character.campaign.name, user_campaign_path(@character.player, @character.campaign) %></h2>
 <% end %>
 
@@ -19,9 +19,9 @@
 <h3>Info:</h3>
 Level: <%= @character.level %>
 <br>
-Race: <%= @character.race %>
+Race: <%= link_to @character.race, race_path(@character.race) %>
 <br>
-Class: <%= @character.class_name %>
+Class: <%= link_to @character.class_name, class_name_path(@character.class_name) %>
 <br>
 Strength: <%= @character.strength %> (<%= (@character.strength.to_i/2) - 5 %>)
 <br>
@@ -48,6 +48,7 @@ Charisma: <%= @character.charisma %> (<%= (@character.charisma.to_i/2) - 5 %>)
     </ul>
   </div>
 <% end %>
+<% if @character.player == current_user %>
 <div class="">
   <h3>Learn Spell</h3>
     <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/learn_spell", method:'patch' do %>
@@ -55,9 +56,11 @@ Charisma: <%= @character.charisma %> (<%= (@character.charisma.to_i/2) - 5 %>)
       <%= submit_tag "Add Spell"%>
     <% end %>
 </div>
-<%= link_to "Edit #{@character.name}", edit_user_character_path(@character) %>
-<br>
-<%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
+
+  <%= link_to "Edit #{@character.name}", edit_user_character_path(@character) %>
+  <br>
+  <%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
+<% end %>
 
 <datalist id="spell_autocomplete">
   <% Spell.all.each do |spell| %>

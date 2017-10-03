@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
+  get '/login', to: 'statics#login', as: 'login'
+  post 'sessions/create', to: 'sessions#create'
+  delete 'sessions/destroy', to: 'sessions#destroy'
+
   patch '/campaigns/:campaign_id/characters/:character_id/remove_campaign', to: 'characters#remove_campaign'
 
   patch "/users/:user_id/characters/:character_id/join_campaign", to: 'characters#join_campaign'

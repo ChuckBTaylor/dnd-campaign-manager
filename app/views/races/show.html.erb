@@ -5,7 +5,12 @@
 </br>
 
 <strong><label>Ability Bonuses:</label></strong></br>
-<%= @collection["ability_bonuses"] %></br>
+<% stat_names = ["Strength",'Dexterity','Constitution','Intelligence','Wisdom','Charisma'] %>
+<% zipped = Hash[stat_names.zip(@collection["ability_bonuses"])] %>
+<% zipped.each do |k,v| %>
+  <%= "-#{k}: #{v}-" %>
+<% end %>
+</br>
 </br>
 
 <strong><label>Alignment:</label></strong></br>
@@ -52,4 +57,6 @@
   </br>
 <%end%>
 
-<%= link_to "Back", races_path %>
+<%= link_to "Races Index", races_path %>
+<br>
+<%= link_to "Back", user_character_path(recent_character.player, recent_character) %>

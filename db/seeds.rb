@@ -10,3 +10,5 @@ x.populate_table("spell")
 x.populate_table("race")
 x.populate_table("trait")
 x.populate_class_name
+User.create(name:"Admin")
+Campaign.create(name:"No Campaign",user_id:1)

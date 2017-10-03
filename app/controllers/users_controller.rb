@@ -11,7 +11,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.save ? (redirect_to user_path(@user)) : (render :new)
+    if @user.save
+      login(@user.id)
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
   end
 
   def show
@@ -26,7 +31,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_path
+    logout
+    redirect_to login_path
   end
 
 
@@ -39,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :age, :gender)
+    params.require(:user).permit(:name, :email, :age, :gender, :password, :password_confirmation)
   end
 
 end

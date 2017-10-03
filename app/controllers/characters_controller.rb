@@ -1,34 +1,44 @@
 class CharactersController < ApplicationController
+  before_action :check_login
   before_action :set_character, only: [:show, :edit, :update, :destroy]
 
+@@rolled_dice
 
   def index
     redirect_to user_path(params[:user_id])
   end
 
   def new
+    if params[:dice_roll]
+      roll_dice
+      @rolled_dice = @@rolled_dice
+    end
     @user = User.find(params[:user_id])
     @character = Character.new
   end
 
   def create
     @character = Character.new(character_params)
-    @character.player = User.find(params[:user_id])
-    if @character.save
-      redirect_to user_path(@character.player)
+    @user = @character.player = User.find(params[:user_id])
+    if okay = @character.stat_values_okay?(@@rolled_dice) && @character.save
+      redirect_to user_character_path(@character.player, @character)
     else
+      unless okay
+        flash[:titties] = "You must use the numbers provided"
+      end
+      @rolled_dice = @@rolled_dice
       render :new
     end
   end
 
   def show
+    set_recent_character(@character.id)
   end
 
   def edit
   end
 
   def update
-    byebug
     @character.update(character_params) ? (redirect_to user_character_path(@character.player, @character)) : (render :edit)
   end
 
@@ -96,5 +106,13 @@ class CharactersController < ApplicationController
       class_names["name"]
     end
   end
+
+  def roll_dice
+    @@rolled_dice = 6.times.map do
+      4.times.map{ rand(1..6) }.sort
+    end
+  end
+
+
 
 end

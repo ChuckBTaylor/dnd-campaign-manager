@@ -14,7 +14,9 @@
     <br>
   <% end %>
 </div>
-<h4><%= link_to "Create New Character", new_user_character_path(@user) %></h4>
+<% if @user == current_user%>
+  <h4><%= link_to "Create New Character", new_user_character_path(@user) %></h4>
+<% end %>
 <% if @user.campaigns.any? %>
   <h3>Campaigns DMing:</h3>
   <ul>
@@ -23,7 +25,9 @@
     <% end %>
   </ul>
 <% end %>
-<h4><%= link_to "Create New Campaign", new_user_campaign_path(@user) %></h4>
-<%= form_tag "/users/#{@user.id}", method:'delete' do %>
-  <%= submit_tag "Delete User" %>
+<% if @user == current_user %>
+  <h4><%= link_to "Create New Campaign", new_user_campaign_path(@user) %></h4>
+  <%= form_tag "/users/#{@user.id}", method:'delete' do %>
+    <%= submit_tag "Delete User" %>
+  <% end %>
 <% end %>
