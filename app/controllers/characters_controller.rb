@@ -19,7 +19,6 @@ class CharactersController < ApplicationController
 
   def create
     @character = Character.new(character_params)
-    byebug
     @user = @character.player = User.find(params[:user_id])
     if okay = @character.stat_values_okay?(@@rolled_dice) && @character.save
       @@rolled_dice = nil
@@ -76,7 +75,7 @@ class CharactersController < ApplicationController
        @character.save
      else
        if new_spell
-         flash[:titties] = "#{@character.class_name}s can't learn #{new_spell.name}."
+         flash[:titties] = "#{@character.class_name.name}s can't learn #{new_spell.name}."
        else
          flash[:titties] = "No Spell by the name #{params[:spell]}"
        end
@@ -99,7 +98,7 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:level, :name, :race, :class_name, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id)
+    params.require(:character).permit(:level, :name, :race_id, :class_name_id, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id)
   end
 
   def class_okay?(spell)
