@@ -1,62 +1,79 @@
 <h1><%= @collection["name"] %></h1>
 
-<strong><label>Speed:</label></strong></br>
-<%= @collection["speed"] %></br>
-</br>
 
-<strong><label>Ability Bonuses:</label></strong></br>
-<% stat_names = ["Strength",'Dexterity','Constitution','Intelligence','Wisdom','Charisma'] %>
-<% zipped = Hash[stat_names.zip(@collection["ability_bonuses"])] %>
-<% zipped.each do |k,v| %>
-  <%= "-#{k}: #{v}-" %>
-<% end %>
-</br>
-</br>
+    <div class="scrollable">
 
-<strong><label>Alignment:</label></strong></br>
-<%= @collection["alignment"] %></br>
-</br>
+        <strong><label>Speed:</label></strong></br>
+        <%= @collection["speed"] %></br>
+        </br>
 
-<strong><label>Age:</label></strong></br>
-<%= @collection["age"] %></br>
-</br>
+        <strong><label>Ability Bonuses:</label></strong></br>
+        <% stat_names = ["Strength",'Dexterity','Constitution','Intelligence','Wisdom','Charisma'] %>
+        <% zipped = Hash[stat_names.zip(@collection["ability_bonuses"])] %>
+        <% zipped.each do |k,v| %>
+          <%= "-#{k}: #{v}-" %>
+        <% end %>
+        </br>
+        </br>
 
-<strong><label>Size:</label></strong></br>
-<%= @collection["size_description"] %></br>
-</br>
+        <strong><label>Alignment:</label></strong></br>
+        <%= @collection["alignment"] %></br>
+        </br>
 
-<strong><label>Languages:</label></strong></br>
-<%= @collection["language_desc"] %></br>
-</br>
+        <strong><label>Age:</label></strong></br>
+        <%= @collection["age"] %></br>
+        </br>
 
-<strong><label>Sub-Race:</label></strong></br>
-<% @collection["subraces"].each do |subrace| %>
-<%= subrace["name"] %></br>
-<%end%>
-</br>
+        <strong><label>Size:</label></strong></br>
+        <%= @collection["size_description"] %></br>
+        </br>
 
-<% if @collection["starting_proficiencies"] != [] %>
-  <strong><label>Starting Proficiencies:</label></strong></br>
-  <ul>
-  <% @collection["starting_proficiencies"].each do |proficiency| %>
-    <%if proficiency["name"] != nil%>
-    <li><%=proficiency["name"] %></li>
-    <%end%>
-  <%end%>
-  </ul>
-  </br>
-<%end%>
+        <strong><label>Languages:</label></strong></br>
+        <%= @collection["language_desc"] %></br>
+        </br>
 
-<% if @collection["traits"] != [] %>
-  <strong><label>Traits:</label></strong></br>
-  <ul>
-  <% @collection["traits"].each do |trait| %>
-    <li><%=trait["name"]%></li>
-  <%end %>
-  </ul>
-  </br>
-<%end%>
+        <strong><label>Sub-Race:</label></strong></br>
+        <% @collection["subraces"].each do |subrace| %>
+        <%= subrace["name"] %></br>
+        <%end%>
+        </br>
 
-<%= link_to "Races Index", races_path %>
-<br>
-<%= link_to "Back", user_character_path(recent_character.player, recent_character) %>
+        <% if @collection["starting_proficiencies"] != [] %>
+          <strong><label>Starting Proficiencies:</label></strong></br>
+          <ul>
+          <% @collection["starting_proficiencies"].each do |proficiency| %>
+            <%if proficiency["name"] != nil%>
+            <li><%=proficiency["name"] %></li>
+            <%end%>
+          <%end%>
+          </ul>
+          </br>
+        <%end%>
+
+        <% if @collection["traits"] != [] %>
+          <strong><label>Traits:</label></strong></br>
+          <ul>
+          <% @collection["traits"].each do |trait| %>
+            <li><%=trait["name"]%></li>
+          <%end %>
+          </ul>
+          </br>
+        <%end%>
+
+        <%= link_to "Races Index", races_path %>
+        <br>
+        <%= link_to "Back", user_character_path(recent_character.player, recent_character) %>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+
+
+    </div>

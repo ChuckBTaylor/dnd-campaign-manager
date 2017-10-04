@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/home', to: 'statics#home', as: 'home'
   get '/login', to: 'statics#login', as: 'login'
   post 'sessions/create', to: 'sessions#create'
-  delete 'sessions/destroy', to: 'sessions#destroy'
+  delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
 
   patch '/campaigns/:campaign_id/characters/:character_id/remove_campaign', to: 'characters#remove_campaign'
 
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   patch "/users/:user_id/characters/:character_id/learn_spell", to: 'characters#learn_spell'
 
   delete "/users/:user_id/characters/:character_id/forget_spell/:spell_id", to: 'characters#forget_spell'
-  
+
   resources :class_names, only: [:index, :show]
   resources :traits, only: [:index, :show]
   resources :races, only: [:index, :show]

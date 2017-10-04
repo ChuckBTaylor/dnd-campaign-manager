@@ -1,7 +1,8 @@
 <h1>Races:</h1>
-
+<div class="scrollable">
 <ul>
 <% @races.each do |race| %>
 <li><%= link_to race.name, race_path(race) %></li>
 <% end %>
 </ul>
+</div>

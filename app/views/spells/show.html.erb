@@ -1,5 +1,8 @@
 <h1><%= @collection["name"] %></h1>
 
+<div class="scrollable">
+
+</div>
 <strong><label>Description:</label></strong>
 <p><%= @collection["desc"][0] %></p>
 
@@ -20,4 +23,7 @@
 <% end %>
 <br>
 
+
 <%= link_to "Back", user_character_path(recent_character.player, recent_character) %>
+
+</div>
