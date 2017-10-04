@@ -1,6 +1,6 @@
 
 <datalist id="spell_autocomplete">
-  <% Spell.all.each do |spell| %>
+  <% @character.class_name.spells.each do |spell| %>
     <option value="<%= spell.name %>"></option>
   <% end %>
 </datalist>
@@ -8,37 +8,61 @@
   <h1><%= @character.name %>'s page</h1>
 </div>
 <div>
-  <h2>Player: <%= link_to @character.player.try(:name), user_path(@character.player) %></h2>
+  <h2>Player: <%= link_to @character.player.name, user_path(@character.player) %></h2>
   <% if @character.campaign.name != "No Campaign" %>
-    <h2>Campaign: <%= link_to @character.campaign.name, user_campaign_path(@character.player, @character.campaign) %></h2>
+    <h2>Campaign: <%= link_to @character.campaign.name, campaign_path(@character.campaign) %></h2>
   <% else%>
     <p>Join Campaign:
     <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/join_campaign", method:'patch' do %>
       <%= select_tag "character[campaign_id]", options_from_collection_for_select(Campaign.all, "id", "name") %>
-      <%= submit_tag %>
+      <%= submit_tag "Join Campaign"%>
     <% end %>
     </p>
   <% end %>
 </div>
 <div>
   <h3>Info:</h3>
+
   Level: <%= @character.level %>
   <br>
-  Race: <%= link_to @character.race, race_path(@character.race) %>
+  Race: <%= link_to @character.race.name, race_path(@character.race) %>
   <br>
-  Class: <%= link_to @character.class_name, class_name_path(@character.class_name) %>
+  Class: <%= link_to @character.class_name.name, class_name_path(@character.class_name) %>
   <br>
-  Strength: <%= @character.strength %> (<%= (@character.strength.to_i/2) - 5 %>)
+  Strength: <%= str = @character.strength.to_i + @character.race.ability_bonuses[0].to_i %> (<%= (str / 2) - 5 %>)
+  <% if @character.race.ability_bonuses[0].to_i != 0 %>
+    <%= " | (+ #{@character.race.ability_bonuses[0]} from #{@character.race.name})" %>
+  <% end %>
   <br>
-  Dexterity: <%= @character.dexterity %> (<%= (@character.dexterity.to_i/2) - 5 %>)
+  Dexterity: <%= dex = @character.dexterity.to_i + @character.race.ability_bonuses[1].to_i %> (<%= (dex / 2) - 5 %>)
+  <% if @character.race.ability_bonuses[1].to_i != 0 %>
+    <%= " | (+ #{@character.race.ability_bonuses[1]} from #{@character.race.name})" %>
+  <% end %>
   <br>
-  Constitution: <%= @character.constitution %> (<%= (@character.constitution.to_i/2) - 5 %>)
+  Constitution: <%= con = @character.constitution.to_i + @character.race.ability_bonuses[2].to_i %> (<%= (con / 2) - 5 %>)
+  <% if @character.race.ability_bonuses[2].to_i != 0 %>
+    <%= " | (+ #{@character.race.ability_bonuses[2]} from #{@character.race.name})" %>
+  <% end %>
   <br>
-  Intelligence: <%= @character.intelligence %> (<%= (@character.intelligence.to_i/2) - 5 %>)
+  Intelligence: <%= int = @character.intelligence.to_i + @character.race.ability_bonuses[3].to_i %> (<%= (int / 2) - 5 %>)
+  <% if @character.race.ability_bonuses[3].to_i != 0 %>
+    <%= " | (+ #{@character.race.ability_bonuses[3]} from #{@character.race.name})" %>
+  <% end %>
   <br>
-  Wisdom: <%= @character.wisdom %> (<%= (@character.wisdom.to_i/2) - 5 %>)
+  Wisdom: <%= wis = @character.wisdom.to_i + @character.race.ability_bonuses[4].to_i %> (<%= (wis / 2) - 5 %>)
+  <% if @character.race.ability_bonuses[4].to_i != 0 %>
+    <%= " | (+ #{@character.race.ability_bonuses[4]} from #{@character.race.name})" %>
+  <% end %>
   <br>
-  Charisma: <%= @character.charisma %> (<%= (@character.charisma.to_i/2) - 5 %>)
+  Charisma: <%= cha = @character.charisma.to_i + @character.race.ability_bonuses[5].to_i %> (<%= (cha / 2) - 5 %>)
+  <% if @character.race.ability_bonuses[5].to_i != 0 %>
+    <%= " | (+ #{@character.race.ability_bonuses[5]} from #{@character.race.name})" %>
+  <% end %>
+  <% if @character.race.name == "Half-Elf" %>
+    <div class="">
+      <p>Half Elves also get to add 1 point to any two different stats except charisma</p>
+    </div>
+  <% end %>
   <br>
   <br>
   <% if @character.spells.any? %>
@@ -57,17 +81,19 @@
     </div>
   <% end %>
   <% if @character.player == current_user %>
-  <div class="">
-    <h3>Learn Spell</h3>
-      <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/learn_spell", method:'patch' do %>
-        <%= text_field_tag "spell",'',{list:'spell_autocomplete', placeholder:'Type Spell Name'} %>
-        <%= submit_tag "Add Spell"%>
-      <% end %>
-  </div>
-  <div>
-    <%= link_to "Edit #{@character.name}", edit_user_character_path(@character) %>
-    <br>
-    <%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
-  </div>
+    <% unless @character.class_name.spells.none? %>
+      <div class="">
+        <h3>Learn Spell</h3>
+        <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/learn_spell", method:'patch' do %>
+          <%= text_field_tag "spell",'',{list:'spell_autocomplete', placeholder:'Type Spell Name'} %>
+          <%= submit_tag "Add Spell"%>
+        <% end %>
+      </div>
+    <% end %>
+    <div>
+      <%= link_to "Edit #{@character.name}", edit_user_character_path(@character) %>
+      <br>
+      <%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
+    </div>
   <% end %>
 </div>

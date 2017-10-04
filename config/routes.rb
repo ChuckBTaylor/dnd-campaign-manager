@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
   get '/spells/search', to: 'spells#search'
 
   root 'statics#home'
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   get '/login', to: 'statics#login', as: 'login'
   post 'sessions/create', to: 'sessions#create'
   delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
+
+  patch '/users/:user_id/characters/:character_id/leave_campaign', to: 'characters#leave_campaign'
 
   patch '/campaigns/:campaign_id/characters/:character_id/remove_campaign', to: 'characters#remove_campaign'
 
@@ -22,10 +25,13 @@ Rails.application.routes.draw do
   resources :traits, only: [:index, :show]
   resources :races, only: [:index, :show]
   resources :spells, only: [:index, :show]
+  resources :campaigns, except: :index do
+    resources :messages, only: [:create, :index]
+    resources :notes, only: [:index, :create]
+  end
 
   resources :users do
     resources :characters, except: :index
-    resources :campaigns, except: :index
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

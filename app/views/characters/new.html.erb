@@ -32,13 +32,13 @@
       <%= f.text_field :name %>
       <br>
       <%= f.label :level %>
-      <%= f.number_field :level %>
+      <%= f.select :level, (1..20) %>
       <br>
       <%= f.label :class %>
-      <%= f.collection_select :class_name, ClassName.all, :name, :name %>
+      <%= f.collection_select :class_name_id, ClassName.all, :id, :name %>
       <br>
       <%= f.label :race %>
-      <%= f.collection_select :race, Race.all, :name, :name %>
+      <%= f.collection_select :race_id, Race.all, :id, :name %>
       <br>
       <%= f.label :strength %>
       <%= f.number_field :strength %>

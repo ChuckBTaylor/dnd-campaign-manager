@@ -21,6 +21,7 @@ class CharactersController < ApplicationController
     @character = Character.new(character_params)
     @user = @character.player = User.find(params[:user_id])
     if okay = @character.stat_values_okay?(@@rolled_dice) && @character.save
+      @@rolled_dice = nil
       redirect_to user_character_path(@character.player, @character)
     else
       unless okay
@@ -53,11 +54,17 @@ class CharactersController < ApplicationController
     redirect_to user_character_path(character.player, character)
   end
 
+  def leave_campaign
+    character = Character.find(params[:character_id])
+    character.update(campaign: Campaign.find_by(name:"No Campaign"))
+    redirect_to user_character_path(character.player, character)
+  end
+
   def remove_campaign
     character = Character.find(params[:character_id])
     character.update(campaign: Campaign.find_by(name:"No Campaign"))
     campaign = Campaign.find(params[:campaign_id])
-    redirect_to user_campaign_path(campaign.user, campaign)
+    redirect_to campaign_path(campaign)
   end
 
   def learn_spell
@@ -68,7 +75,7 @@ class CharactersController < ApplicationController
        @character.save
      else
        if new_spell
-         flash[:titties] = "#{@character.class_name}s can't learn #{new_spell.name}."
+         flash[:titties] = "#{@character.class_name.name}s can't learn #{new_spell.name}."
        else
          flash[:titties] = "No Spell by the name #{params[:spell]}"
        end
@@ -91,7 +98,7 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:level, :name, :race, :class_name, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id)
+    params.require(:character).permit(:level, :name, :race_id, :class_name_id, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id)
   end
 
   def class_okay?(spell)
