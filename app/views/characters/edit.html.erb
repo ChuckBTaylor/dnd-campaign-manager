@@ -13,13 +13,13 @@
     <%= f.text_field :name %>
     <br>
     <%= f.label :level %>
-    <%= f.number_field :level %>
+    <%= f.select :level, (1..20) %>
     <br>
     <%= f.label :class_name %>
-    <%= f.text_field :class_name %>
+    <%= f.collection_select :class_name_id, ClassName.all, :id, :name %>
     <br>
     <%= f.label :race %>
-    <%= f.text_field :race %>
+    <%= f.collection_select :race_id, Race.all, :id, :name %>
     <br>
     <%= f.label :strength %>
     <%= f.number_field :strength %>
@@ -38,9 +38,6 @@
     <br>
     <%= f.label :charisma %>
     <%= f.number_field :charisma %>
-    <br>
-    <%= f.label :campaign %>
-    <%= f.collection_select :campaign_id, Campaign.all, :id, :name %>
     <br>
     <%= f.submit %>
   <% end %>

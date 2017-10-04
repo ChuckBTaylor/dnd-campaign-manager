@@ -1,0 +1,23 @@
+<div class="">
+  <h1>Notes for campaign <%= link_to @campaign.name, campaign_path(@campaign) %></h1>
+</div>
+<div class="">
+  <%= form_tag "/campaigns/#{@campaign.id}/notes" do %>
+    <%= text_field_tag :title,'',placeholder:"Title", name:'note[title]' %>
+    <br>
+    <%= text_area_tag :content,'',placeholder:"Write your note here", name:'note[content]'%>
+    <%= hidden_field_tag "note[campaign_id]", @campaign.id %>
+    <%= submit_tag "Post note" %>
+  <% end %>
+</div>
+<div class="">
+  <ul>
+    <% @notes.reverse_each do |note| %>
+      <li><%= note.title %> | Last edited: <%= note.updated_at.to_date %>
+        <ul>
+          <li><%= note.content %></li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

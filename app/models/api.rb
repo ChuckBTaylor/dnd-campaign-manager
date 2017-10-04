@@ -32,5 +32,29 @@ class Api
     end
   end
 
+  def populate_race_info
+    Race.all.map do |race|
+      JSON.parse(RestClient.get(race.api_url))
+    end.each do |race_info|
+      race = Race.find_by(name: race_info["name"])
+      race.update(speed: race_info["speed"])
+      race.update(alignment: race_info["alignment"])
+      race.update(age: race_info["age"])
+      race.update(size: race_info["size_description"])
+      race.update(languages: race_info["language_desc"])
+      race.update(ability_bonuses: race_info["ability_bonuses"].join)
+    end
+  end
+
+  def populate_class_names_spells
+    Spell.all.each do |spell|
+      spell_info = JSON.parse(RestClient.get(spell.api_url))
+      spell_info["classes"].each do |class_hash|
+        clas = ClassName.find_by(name: class_hash["name"])
+        clas.spells << spell
+      end
+    end
+  end
+
 
 end

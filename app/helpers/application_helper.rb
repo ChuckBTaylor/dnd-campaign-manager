@@ -8,7 +8,11 @@ module ApplicationHelper
   end
 
   def recent_character
-    Character.find(session[:recent_character])
+    if session[:recent_character]
+      Character.find(session[:recent_character])
+    else
+      nil
+    end
   end
-  
+
 end

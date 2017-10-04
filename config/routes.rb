@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :spells, only: [:index, :show]
   resources :campaigns, except: :index do
     resources :messages, only: [:create, :index]
+    resources :notes, only: [:index, :create]
   end
 
   resources :users do
