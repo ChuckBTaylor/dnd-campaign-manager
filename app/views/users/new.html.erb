@@ -1,3 +1,12 @@
+<div class="">
+  <% if @user.errors.any? %>
+    <ul>
+      <% @user.errors.full_messages.each do |fm| %>
+        <li><%= fm %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 <div>
   <%= form_for @user do |f| %>
     <%= f.label :name %>

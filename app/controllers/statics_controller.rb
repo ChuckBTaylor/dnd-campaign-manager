@@ -8,6 +8,7 @@ def login
 end
 
 def home
+  # logout
   render layout: false
 end
 
