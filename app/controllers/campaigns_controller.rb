@@ -1,6 +1,6 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-
+  helper :campaigns
   def index
     @campaigns = Campaign.all
   end
@@ -11,7 +11,8 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign = Campaign.new(campaign_params)
-    @campaign.save ? (redirect_to user_campaign_path(@campaign.user, @campaign)) : (render :new)
+    @campaign.user = User.find(session[:user_id])
+    @campaign.save ? (redirect_to campaign_path(@campaign)) : (render :new)
   end
 
   def show
@@ -26,7 +27,7 @@ class CampaignsController < ApplicationController
 
   def destroy
     @campaign.destroy
-    redirect_to user_path(params[:user_id])
+    redirect_to user_path(session[:user_id])
   end
 
 

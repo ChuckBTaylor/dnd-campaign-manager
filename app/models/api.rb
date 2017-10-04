@@ -3,7 +3,7 @@ class Api
 
   def get_skills_from_api(skill)
   	json = RestClient.get("http://dnd5eapi.co/api/#{skill}/")
-  	collection = JSON.parse(json)
+  	JSON.parse(json)
   end
 
 

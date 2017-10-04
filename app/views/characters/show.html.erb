@@ -8,9 +8,9 @@
   <h1><%= @character.name %>'s page</h1>
 </div>
 <div>
-  <h2>Player: <%= link_to @character.player.try(:name), user_path(@character.player) %></h2>
+  <h2>Player: <%= link_to @character.player.name, user_path(@character.player) %></h2>
   <% if @character.campaign.name != "No Campaign" %>
-    <h2>Campaign: <%= link_to @character.campaign.name, user_campaign_path(@character.player, @character.campaign) %></h2>
+    <h2>Campaign: <%= link_to @character.campaign.name, campaign_path(@character.campaign) %></h2>
   <% else%>
     <p>Join Campaign:
     <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/join_campaign", method:'patch' do %>

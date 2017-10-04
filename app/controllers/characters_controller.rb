@@ -19,8 +19,10 @@ class CharactersController < ApplicationController
 
   def create
     @character = Character.new(character_params)
+    byebug
     @user = @character.player = User.find(params[:user_id])
     if okay = @character.stat_values_okay?(@@rolled_dice) && @character.save
+      @@rolled_dice = nil
       redirect_to user_character_path(@character.player, @character)
     else
       unless okay
@@ -53,11 +55,17 @@ class CharactersController < ApplicationController
     redirect_to user_character_path(character.player, character)
   end
 
+  def leave_campaign
+    character = Character.find(params[:character_id])
+    character.update(campaign: Campaign.find_by(name:"No Campaign"))
+    redirect_to user_character_path(character.player, character)
+  end
+
   def remove_campaign
     character = Character.find(params[:character_id])
     character.update(campaign: Campaign.find_by(name:"No Campaign"))
     campaign = Campaign.find(params[:campaign_id])
-    redirect_to user_campaign_path(campaign.user, campaign)
+    redirect_to campaign_path(campaign)
   end
 
   def learn_spell
