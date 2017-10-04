@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003174857) do
+ActiveRecord::Schema.define(version: 20171004152426) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
@@ -54,11 +54,27 @@ ActiveRecord::Schema.define(version: 20171003174857) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "user_id"
+    t.integer "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_messages_on_campaign_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "races", force: :cascade do |t|
     t.string "name"
     t.string "api_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "speed"
+    t.integer "ability_bonuses"
+    t.string "alignment"
+    t.string "age"
+    t.string "size"
+    t.string "languages"
   end
 
   create_table "spells", force: :cascade do |t|

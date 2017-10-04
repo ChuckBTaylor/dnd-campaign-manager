@@ -1,0 +1,16 @@
+<div><h1>Message Board for campaign: <%= link_to @messages.first.campaign.name, campaign_path(@messages.first.campaign) %></h1></div>
+
+<div class="">
+  <ul>
+    <% @messages.reverse_each do |message| %>
+      <li><%= message.content %> | <%= link_to message.user.name, user_path(message.user) %></li>
+    <% end %>
+  </ul>
+</div>
+<div class="">
+  <%= form_tag "/campaigns/#{@messages.first.campaign.id}/messages" do %>
+    <%= text_area_tag :content,'',palceholder:"Write a message here", class:"form-control", name:'message[content]'%>
+    <%= hidden_field_tag "message[campaign_id]", @messages.first.campaign.id %>
+    <%= submit_tag "Post message" %>
+<% end %>
+</div>

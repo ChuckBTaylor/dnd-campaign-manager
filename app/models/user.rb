@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :characters, foreign_key: 'player_id'
   has_many :campaigns, through: :characters
   has_many :campaigns
+  has_many :messages
   has_secure_password
 
   validates :name, :username, :email, presence: true

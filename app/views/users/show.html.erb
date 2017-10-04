@@ -24,12 +24,12 @@
     <h3>Campaigns DMing:</h3>
     <ul>
       <% @user.campaigns.each do |campaign| %>
-        <li><%= link_to campaign.name, user_campaign_path(@user, campaign) %></li>
+        <li><%= link_to campaign.name, campaign_path(campaign) %></li>
       <% end %>
     </ul>
   <% end %>
   <% if @user == current_user %>
-    <h4><%= link_to "Create New Campaign", new_user_campaign_path(@user) %></h4>
+    <h4><%= link_to "Create New Campaign", new_campaign_path %></h4>
     <%= form_tag "/users/#{@user.id}", method:'delete' do %>
       <%= submit_tag "Delete User" %>
     <% end %>
