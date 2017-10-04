@@ -9,20 +9,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="jumbotron text-center">
-      <h1>Welcome to the DnD 5e character & campaign manager</h1>
+    <div class="container">
 
-      <div class="container">
-        <p><%= link_to "Login", login_path %> | <%= link_to "Sign Up", new_user_path %></p>
-      </div>
+
+        <div class="jumbotron text-center">
+          <h1>Welcome to the DnD 5e character & campaign manager</h1>
+
+          <div class="container">
+            <p><%= link_to "Login", login_path %> | <%= link_to "Sign Up", new_user_path %></p>
+          </div>
+        </div>
+
+
+          <img src="<%= image_path('cover_photo.jpg') %>" height="50%" width="100%" alt="DnD Cover Photo"></img>
+          <!--  https://orig00.deviantart.net/fdb6/f/2015/235/6/5/dnd_party___xvi_by_hangemhigh13-d96xttq.jpg-->
+
+
+
     </div>
-
-
-      <img src="<%= image_path('cover_photo.jpg') %>" height="50%" width="100%" alt="DnD Cover Photo"></img>
-      <!--  https://orig00.deviantart.net/fdb6/f/2015/235/6/5/dnd_party___xvi_by_hangemhigh13-d96xttq.jpg-->
-
-
-
-
   </body>
 </html>

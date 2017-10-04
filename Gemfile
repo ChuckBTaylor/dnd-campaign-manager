@@ -35,8 +35,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rest-client'
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap', '~> 4.0.0.beta'
 gem 'autoprefixer-rails'
+gem 'jquery-rails'
 
 
 group :development, :test do

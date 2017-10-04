@@ -1,5 +1,8 @@
 <h1><%= @race.name %></h1>
 
+<div class="scrollable">
+
+
 <strong><label>Speed:</label></strong></br>
 <%= @race.speed %></br>
 </br>
@@ -37,3 +40,5 @@
 <%= link_to "Races Index", races_path %>
 <br>
 <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
+
+</div>

@@ -1,5 +1,8 @@
 <h1><%= @collection["name"] %></h1>
 
+<div class="scrollable">
+
+</div>
 <strong><label>Description:</label></strong>
 <p><%= @collection["desc"][0] %></p>
 
@@ -19,6 +22,7 @@
   | <%= class_name["name"] %> |
 <% end %>
 <br>
+
 <% if recent_character %>
   <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
 <% else %>
