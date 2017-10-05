@@ -2,29 +2,30 @@
 
 <div class="scrollable">
 
+  <strong><label>Description:</label></strong>
+  <p><%= @collection["desc"][0] %></p>
+
+  <% if @collection["higher_level"] %>
+  <strong><label>Higher Level:</label></strong>
+  <p><%= @collection["higher_level"][0] %></p>
+  <% end %>
+
+  <strong><label>Range:</label></strong>
+  <p><%= @collection["range"] %></p>
+
+  <strong><label>Concentration?</label></strong>
+  <p><%= @collection["concentration"] %></p>
+
+  <strong><label>Classes:</label></strong>
+  <% @collection["classes"].each do |class_name| %>
+    | <%= class_name["name"] %> |
+  <% end %>
+  <br>
+
+  <% if recent_character %>
+    <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
+  <% else %>
+    <%= link_to "Back", spells_path %>
+  <% end %>
+
 </div>
-<strong><label>Description:</label></strong>
-<p><%= @collection["desc"][0] %></p>
-
-<% if @collection["higher_level"] %>
-<strong><label>Higher Level:</label></strong>
-<p><%= @collection["higher_level"][0] %></p>
-<% end %>
-
-<strong><label>Range:</label></strong>
-<p><%= @collection["range"] %></p>
-
-<strong><label>Concentration?</label></strong>
-<p><%= @collection["concentration"] %></p>
-
-<strong><label>Classes:</label></strong>
-<% @collection["classes"].each do |class_name| %>
-  | <%= class_name["name"] %> |
-<% end %>
-<br>
-
-<% if recent_character %>
-  <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
-<% else %>
-  <%= link_to "Back", spells_path %>
-<% end %>

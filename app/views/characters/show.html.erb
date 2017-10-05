@@ -23,6 +23,8 @@
 <div>
   <h3>Info:</h3>
 
+  <% byebug %>
+
   Level: <%= @character.level %>
   <br>
   Race: <%= link_to @character.race.name, race_path(@character.race) %>

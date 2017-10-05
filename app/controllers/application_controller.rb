@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     !!session[:user_id]
   end
 
+  def user_exist?
+    current_user != nil
+  end
+
   def set_recent_character(id)
     session[:recent_character] = id
   end
