@@ -39,6 +39,7 @@
 
 <%= link_to "Races Index", races_path %>
 <br>
-<%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
-
+<% if recent_character %>
+  <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
+<% end %>
 </div>

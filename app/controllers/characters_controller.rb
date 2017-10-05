@@ -51,12 +51,12 @@ class CharactersController < ApplicationController
   def join_campaign
     character = Character.find(params[:character_id])
     character.update(campaign: Campaign.find(params[:character][:campaign_id]))
-    redirect_to user_character_path(character.player, character)
+    redirect_to campaign_path(character.campaign)
   end
 
   def leave_campaign
     character = Character.find(params[:character_id])
-    character.update(campaign: Campaign.find_by(name:"No Campaign"))
+    character.campaigns.destroy_all
     redirect_to user_character_path(character.player, character)
   end
 
