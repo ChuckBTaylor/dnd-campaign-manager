@@ -112,6 +112,10 @@ class CharactersController < ApplicationController
     end
   end
 
+  def character_has_spell?
+    
+  end
+
 
 
 end
