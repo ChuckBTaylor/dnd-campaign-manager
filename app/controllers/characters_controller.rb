@@ -113,5 +113,4 @@ class CharactersController < ApplicationController
   end
 
 
-
 end
