@@ -20,6 +20,7 @@ class CharactersController < ApplicationController
   def create
     @character = Character.new(character_params)
     @user = @character.player = User.find(params[:user_id])
+
     if okay = @character.stat_values_okay?(@@rolled_dice) && @character.save
       @@rolled_dice = nil
       redirect_to user_character_path(@character.player, @character)

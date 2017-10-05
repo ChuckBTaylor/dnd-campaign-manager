@@ -8,8 +8,10 @@ def login
 end
 
 def home
-  logout
-  render layout: false
+  if !user_exist?
+    logout
+  end
+    render layout: false
 end
 
 end

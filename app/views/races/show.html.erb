@@ -1,6 +1,7 @@
 <h1><%= @race.name %></h1>
 
-<div class="scrollable">
+<div class="scrollable_race">
+  <div class="api_stats">
 
 
 <strong><label>Speed:</label></strong></br>
@@ -42,4 +43,5 @@
 <% if recent_character %>
   <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
 <% end %>
+</div>
 </div>
