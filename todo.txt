@@ -1,9 +1,1 @@
 #fix double spells
-
-#fix join campaign for no-campaign
-
-#join table for campaigns-characters
-
-#route from characters/show to campaigns/index
-
-#fix  <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>

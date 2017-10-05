@@ -10,4 +10,10 @@ module CampaignsHelper
     @campaign.user == User.find(session[:user_id])
   end
 
+  def users_campaignless_characters
+    current_user.characters.select do |character|
+      character.campaigns.empty?
+    end
+  end
+
 end

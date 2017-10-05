@@ -27,7 +27,7 @@
   <% if @user == current_user %>
     <h4><%= link_to "Create New Campaign", new_campaign_path %></h4>
     <%= form_tag "/users/#{@user.id}", method:'delete' do %>
-      <%= submit_tag "Delete User" %>
+      <%= submit_tag "Delete User", class: 'btn btn-success' %>
     <% end %>
   <% end %>
 </div>

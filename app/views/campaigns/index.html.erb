@@ -1,0 +1,14 @@
+<h1>Campaigns:</h1>
+
+<% @campaigns.each do |campaign| %>
+  <strong><%= link_to campaign.name, campaign_path(campaign) %></strong>
+  <% if campaign.notes.any? %>
+    - <%= "#{campaign.notes.last.try(:title)}: #{campaign.notes.last.try(:content)}" %>
+  <% end %>
+  </br>
+  DM:  <%=  link_to campaign.user.username, user_path(campaign.user) %> </br>
+  Players: <ul><% campaign.characters.each do |character|%>
+    <li> <%= link_to character.name, user_character_path(character.player, character)%> - <%= link_to character.class_name.name, class_name_path(character.class_name)  %></li>
+    <% end %>
+  </ul></br>
+<% end %>

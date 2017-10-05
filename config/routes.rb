@@ -19,13 +19,15 @@ Rails.application.routes.draw do
 
   patch "/users/:user_id/characters/:character_id/learn_spell", to: 'characters#learn_spell'
 
+  post "/campaigns/:campaign_id/add_character", to: 'campaigns#add_character'
+
   delete "/users/:user_id/characters/:character_id/forget_spell/:spell_id", to: 'characters#forget_spell'
 
   resources :class_names, only: [:index, :show]
   resources :traits, only: [:index, :show]
   resources :races, only: [:index, :show]
   resources :spells, only: [:index, :show]
-  resources :campaigns, except: :index do
+  resources :campaigns  do
     resources :messages, only: [:create, :index]
     resources :notes, only: [:index, :create]
   end
