@@ -52,12 +52,12 @@ class CharactersController < ApplicationController
   def join_campaign
     character = Character.find(params[:character_id])
     character.update(campaign: Campaign.find(params[:character][:campaign_id]))
-    redirect_to user_character_path(character.player, character)
+    redirect_to campaign_path(character.campaign)
   end
 
   def leave_campaign
     character = Character.find(params[:character_id])
-    character.update(campaign: Campaign.find_by(name:"No Campaign"))
+    character.campaigns.destroy_all
     redirect_to user_character_path(character.player, character)
   end
 
@@ -103,16 +103,7 @@ class CharactersController < ApplicationController
   end
 
   def class_okay?(spell)
-    okay_classes = get_spell_classes(spell)
-    okay_classes.include?(@character.class_name) ? true : false
-  end
-
-  def get_spell_classes(spell)
-    json = RestClient.get(spell.api_url)
-    collection = JSON.parse(json)
-    collection["classes"].map do |class_names|
-      class_names["name"]
-    end
+    @character.class_name.spells.include?(spell)
   end
 
   def roll_dice

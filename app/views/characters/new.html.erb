@@ -58,9 +58,6 @@
       <%= f.label :charisma %>
       <%= f.number_field :charisma %>
       <br>
-      <%= f.label :campaign %>
-      <%= f.collection_select :campaign_id, Campaign.all, :id, :name %>
-      <br>
       <%= f.submit %>
     <% end %>
   </div>

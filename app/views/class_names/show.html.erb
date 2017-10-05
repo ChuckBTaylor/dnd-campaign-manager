@@ -21,6 +21,7 @@
         <% end %>
       </ul>
 
+
       <strong><label>Saving Throws:</label></strong>
       <ul>
         <% @collection["saving_throws"].each do |choice| %>
@@ -29,5 +30,8 @@
       </ul>
 
       <%= link_to "Back", class_names_path %>
-    </div>
+      <% if recent_character %>
+        <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
+      <% end %>
+   </div>
   </div>
