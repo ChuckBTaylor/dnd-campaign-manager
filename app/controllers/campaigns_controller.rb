@@ -1,6 +1,8 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
   helper :campaigns
+
+
   def index
     @campaigns = Campaign.all
   end
@@ -19,6 +21,12 @@ class CampaignsController < ApplicationController
   end
 
   def edit
+  end
+
+  def add_character
+    campaign = Campaign.find(params[:campaign_id])
+    campaign.characters << Character.find(params[:campaign][:character_id])
+    redirect_to campaign_path(campaign)
   end
 
   def update

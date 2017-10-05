@@ -71,11 +71,13 @@ class CharactersController < ApplicationController
   def learn_spell
     new_spell = Spell.find_by(name: params[:spell])
     @character = Character.find(params[:character_id])
-    if new_spell && class_okay?(new_spell)
+    if new_spell && class_okay?(new_spell) && !@character.spells.include?(new_spell)
        @character.spells << new_spell
        @character.save
      else
-       if new_spell
+       if new_spell && @character.spells.include?(new_spell)
+         flash[:titties] = "#{@character.name} already has #{new_spell.name}."
+      elsif new_spell
          flash[:titties] = "#{@character.class_name.name}s can't learn #{new_spell.name}."
        else
          flash[:titties] = "No Spell by the name #{params[:spell]}"

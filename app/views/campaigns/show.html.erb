@@ -1,19 +1,14 @@
-<div>
+
 <h1><%= @campaign.name %></h1>
-</div>
-<div>
+
 <h3>DM: <%= link_to @campaign.user.name, user_path(@campaign.user) %></h3>
-</div>
-<div>
+
   <h4>Description:</h4>
-  <div>
     <p><%= @campaign.description %></p>
-  </div>
-<div class="">
+
   <%= link_to "View Notes", campaign_notes_path(@campaign) %>
-</div>
 <h4>Characters:</h4>
-  <div>
+
     <ul>
       <% @campaign.characters.each do |character| %>
       <li><%= link_to character.name, user_character_path(character.player, character) %>
@@ -25,10 +20,10 @@
       </li>
       <% end %>
     </ul>
-  </div>
+
   <br>
 <% if user_has_character_in_campaign? || user_is_dm? %>
-  <div class="">
+
     <h2>Message Board:</h2>
     <% if @campaign.messages.any?%>
       <ul>
@@ -47,20 +42,25 @@
       <% else %>
         <p>There are no messages here yet.</p>
       <% end %>
-    </div>
-    <div class="">
+
+
       <%= form_tag "/campaigns/#{@campaign.id}/messages" do %>
         <%= text_area_tag :content,'',placeholder:"Write a message here", name:'message[content]'%>
         <%= hidden_field_tag "message[campaign_id]", @campaign.id %>
-        <%= submit_tag "Post message" %>
+        <%= submit_tag "Post message", class: 'btn btn-success' %>
       <% end %>
     <% end %>
-  </div>
+
+    <%= form_tag "/campaigns/#{@campaign.id}/add_character" do %>
+    <%= select_tag "campaign[character_id]", options_from_collection_for_select(users_campaignless_characters, "id", "name") %>
+    <%= submit_tag "Join Campaign", class: 'btn btn-success'%>
+    <% end %>
+
+
   <% if @campaign.user == current_user %>
-    <div>
+
       <%= link_to "Edit #{@campaign.name}", edit_campaign_path(@campaign) %>
       <br>
       <%= link_to "Delete Campaign", "/campaigns/#{@campaign.id}", method:'delete' %>
-    </div>
+
   <% end %>
-</div>
