@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>DndCampaignBuilder</title>
+    <%= csrf_meta_tags %>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
-    <div class="container">
 
+  <body id="home">
+      <nav class="navbar navbar-expand-lg">
 
-        <div class="jumbotron text-center">
-          <h1>Welcome to the DnD 5e character & campaign manager</h1>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-          <div class="container">
-            <p><%= link_to "Login", login_path %> | <%= link_to "Sign Up", new_user_path %></p>
+            <ul class="navbar-nav mr-auto">
+              <a class="navbar-brand" href="#">
+                <img src="dicelogo.png" width="30px" height="30px" alt="">
+              </a>
+              <li class="nav-item active">
+                <%= link_to "Sign Up", new_user_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item active">
+                <%= link_to "Login", login_path, class: "nav-link" %>
+              </li>
+            </ul>
+          </div>
+
+        </nav>
+
+        <div class="container">
+          <div class="row">
+            <div class="col">
+            <%= flash[:titties] if flash[:titties] %>
+            <%= yield %>
           </div>
         </div>
-
-
-          <img src="<%= image_path('cover_photo.jpg') %>" height="50%" width="100%" alt="DnD Cover Photo"></img>
-          <!--  https://orig00.deviantart.net/fdb6/f/2015/235/6/5/dnd_party___xvi_by_hangemhigh13-d96xttq.jpg-->
-
-
-
-    </div>
+      </div>
   </body>
 </html>
