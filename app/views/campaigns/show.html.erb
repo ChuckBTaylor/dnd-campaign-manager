@@ -1,66 +1,75 @@
 
-<h1><%= @campaign.name %></h1>
+<div class="row">
+  <div class="col-sm-4">
+    <h1><%= @campaign.name %></h1>
 
-<h3>DM: <%= link_to @campaign.user.name, user_path(@campaign.user) %></h3>
+    <h3>DM: <%= link_to @campaign.user.name, user_path(@campaign.user) %></h3>
 
-  <h4>Description:</h4>
-    <p><%= @campaign.description %></p>
+      <h4>Description:</h4>
+        <p><%= @campaign.description %></p>
 
-  <%= link_to "View Notes", campaign_notes_path(@campaign) %>
-<h4>Characters:</h4>
+      <h4><%= link_to "View Notes", campaign_notes_path(@campaign) %></h4>
+    <h4>Characters:</h4>
 
-    <ul>
-      <% @campaign.characters.each do |character| %>
-      <li><%= link_to character.name, user_character_path(character.player, character) %>
-        <% if character.player == current_user %>
-          | <%= link_to "Leave campaign", "/users/#{character.player.id}/characters/#{character.id}/leave_campaign", method:'patch' %>
-        <% elsif @campaign.user == current_user %>
-          | <%= link_to " Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
-        <% end %>
-      </li>
-      <% end %>
-    </ul>
-
-  <br>
-<% if user_has_character_in_campaign? || user_is_dm? %>
-
-    <h2>Message Board:</h2>
-    <% if @campaign.messages.any?%>
-      <ul>
-        <% if @campaign.messages.size <= 10 %>
-          <% @campaign.messages.reverse_each do |message| %>
-            <li><%= message.content %> | <%= link_to message.user.name, user_path(message.user) %></li>
+        <ul>
+          <% @campaign.characters.each do |character| %>
+          <li><%= link_to character.name, user_character_path(character.player, character) %>
+            <% if character.player == current_user %>
+              | <%= link_to "Leave campaign", "/users/#{character.player.id}/characters/#{character.id}/leave_campaign", method:'patch' %>
+            <% elsif @campaign.user == current_user %>
+              | <%= link_to " Remove from Campaign", "/campaigns/#{@campaign.id}/characters/#{character.id}/remove_campaign", method:'patch' %>
+            <% end %>
+          </li>
           <% end %>
-        <% else %>
-          <% limit_messages = @campaign.messages[-10..-1] %>
-          <% limit_messages.reverse_each do |message| %>
-            <li><%= message.content %> | <%= link_to message.user.name, user_path(message.user) %></li>
+        </ul>
+  </div>
+  <div class="col">
+    <div class="messageBoard">
+      <% if user_has_character_in_campaign? || user_is_dm? %>
+        <h2>Message Board:</h2>
+          <% if @campaign.messages.any?%>
+            <ul>
+              <% if @campaign.messages.size <= 10 %>
+                <% @campaign.messages.reverse_each do |message| %>
+                  <li><%= message.content %> | <%= link_to message.user.name, user_path(message.user) %></li>
+                <% end %>
+              <% else %>
+                <% limit_messages = @campaign.messages[-10..-1] %>
+                <% limit_messages.reverse_each do |message| %>
+                  <li><%= message.content %> | <%= link_to message.user.name, user_path(message.user) %></li>
+                <% end %>
+                <%= link_to "See all messages", campaign_messages_path(@campaign) %>
+              <% end %>
+            </ul>
+            <% else %>
+              <p>There are no messages here yet.</p>
+            <% end %>
+
+
+            <%= form_tag "/campaigns/#{@campaign.id}/messages" do %>
+              <%= text_area_tag :content,'',placeholder:"Write a message here", name:'message[content]'%></br>
+              <%= hidden_field_tag "message[campaign_id]", @campaign.id %>
+              <%= submit_tag "Post message", class: 'btn btn-success' %>
+            <% end %>
           <% end %>
-          <%= link_to "See all messages", campaign_messages_path(@campaign) %>
+
+          <br>
+
+          <%= form_tag "/campaigns/#{@campaign.id}/add_character" do %>
+          <%= select_tag "campaign[character_id]", options_from_collection_for_select(users_campaignless_characters, "id", "name") %></br>
+          <%= submit_tag "Join Campaign", class: 'btn btn-success'%>
+          <% end %>
+
+          </br>
+
+
+        <% if @campaign.user == current_user %>
+
+            <%= link_to "Edit #{@campaign.name}", edit_campaign_path(@campaign) %>
+            <br>
+            <%= link_to "Delete Campaign", "/campaigns/#{@campaign.id}", method:'delete' %>
+
         <% end %>
-      </ul>
-      <% else %>
-        <p>There are no messages here yet.</p>
-      <% end %>
-
-
-      <%= form_tag "/campaigns/#{@campaign.id}/messages" do %>
-        <%= text_area_tag :content,'',placeholder:"Write a message here", name:'message[content]'%>
-        <%= hidden_field_tag "message[campaign_id]", @campaign.id %>
-        <%= submit_tag "Post message", class: 'btn btn-success' %>
-      <% end %>
-    <% end %>
-
-    <%= form_tag "/campaigns/#{@campaign.id}/add_character" do %>
-    <%= select_tag "campaign[character_id]", options_from_collection_for_select(users_campaignless_characters, "id", "name") %>
-    <%= submit_tag "Join Campaign", class: 'btn btn-success'%>
-    <% end %>
-
-
-  <% if @campaign.user == current_user %>
-
-      <%= link_to "Edit #{@campaign.name}", edit_campaign_path(@campaign) %>
-      <br>
-      <%= link_to "Delete Campaign", "/campaigns/#{@campaign.id}", method:'delete' %>
-
-  <% end %>
+    </div>
+  </div>
+</div>

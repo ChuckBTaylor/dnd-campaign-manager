@@ -1,4 +1,4 @@
-<div>
+
   <% if @character.errors.any? %>
     <ul>
     <% @character.errors.full_messages.each do |fm| %>
@@ -6,59 +6,82 @@
     <% end %>
     </ul>
   <% end %>
-</div>
 
-<div>
 <% unless @rolled_dice %>
   <%= form_tag "/users/#{@user.id}/characters/new", method:'get' do %>
     <%= hidden_field_tag "dice_roll" %>
-    <%= submit_tag "Roll Dice", class: 'btn btn-success' %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="diceTitle">
+      <p>Roll the dice...</p>
+    </div>
+    <br>
+    <%= submit_tag "", class: 'diceButton' %>
   <% end %>
 <% end %>
-</div>
-<div>
+
+<div class="row">
+
+
 <% if @rolled_dice %>
-  <% counter = 1 %>
-  <% @rolled_dice.map do |array| %>
-    <%= "Roll Set #{counter}: #{array} = " %><% array.shift if array.size >= 4 %><%= array.reduce(:+)%></br>
-  <% counter += 1 %>
-  <% end %>
-<% end %>
-</div>
-<% if @rolled_dice %>
-  <div>
-    <%= form_for [@user, @character], url: url_for(controller: 'characters', action: 'create') do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <br>
-      <%= f.label :level %>
-      <%= f.select :level, (1..20) %>
-      <br>
-      <%= f.label :class %>
-      <%= f.collection_select :class_name_id, ClassName.all, :id, :name %>
-      <br>
-      <%= f.label :race %>
-      <%= f.collection_select :race_id, Race.all, :id, :name %>
-      <br>
-      <%= f.label :strength %>
-      <%= f.number_field :strength %>
-      <br>
-      <%= f.label :dexterity %>
-      <%= f.number_field :dexterity %>
-      <br>
-      <%= f.label :constitution %>
-      <%= f.number_field :constitution %>
-      <br>
-      <%= f.label :intelligence %>
-      <%= f.number_field :intelligence %>
-      <br>
-      <%= f.label :wisdom %>
-      <%= f.number_field :wisdom %>
-      <br>
-      <%= f.label :charisma %>
-      <%= f.number_field :charisma %>
-      <br>
-      <%= f.submit class: 'btn btn-success' %>
-    <% end %>
+  <div class=""col-sm-4"">
+    <div class="dice_stats">
+      </br>
+      </br>
+      <h3>Rolls:</h3>
+      <% counter = 1 %>
+      <% @rolled_dice.map do |array| %>
+        <%= "Set #{counter}: #{array} = " %><% array.shift if array.size >= 4 %><%= array.reduce(:+)%></br>
+      <% counter += 1 %>
+      <% end %>
+    </div>
   </div>
 <% end %>
+
+
+  <div class="col">
+    <div class="character_form">
+      <% if @rolled_dice %>
+          <%= form_for [@user, @character], url: url_for(controller: 'characters', action: 'create') do |f| %>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+            <br>
+            <%= f.label :level %>
+            <%= f.select :level, (1..20) %>
+            <br>
+            <%= f.label :class %>
+            <%= f.collection_select :class_name_id, ClassName.all, :id, :name %>
+            <br>
+            <%= f.label :race %>
+            <%= f.collection_select :race_id, Race.all, :id, :name %>
+            <br>
+            <%= f.label :strength %>
+            <%= f.number_field :strength %>
+            <br>
+            <%= f.label :dexterity %>
+            <%= f.number_field :dexterity %>
+            <br>
+            <%= f.label :constitution %>
+            <%= f.number_field :constitution %>
+            <br>
+            <%= f.label :intelligence %>
+            <%= f.number_field :intelligence %>
+            <br>
+            <%= f.label :wisdom %>
+            <%= f.number_field :wisdom %>
+            <br>
+            <%= f.label :charisma %>
+            <%= f.number_field :charisma %>
+            <br>
+          </br>
+            <%= f.submit value: 'Save', class: 'fireButton' %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

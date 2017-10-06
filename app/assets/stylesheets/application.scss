@@ -3,6 +3,7 @@
 @import "races";
 
 
+
 .navbar {
   margin-bottom: 30px;
   background: rgba(0, 0, 0, 0.3);
@@ -10,30 +11,53 @@
   font-family: fantasy;
 }
 
-
-body {
-  background-color: transparent;
-  color: yellow;
-  font-family: fantasy;
-  overflow: hidden scroll;
+html {
+  height: 100%;
 }
+body {
+  min-height: 100%;
+}
+
 
 a {
   color: orange;
 }
 
 
-html {
+#main {
 background: url(backgrounds/dragon1.jpg);
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;
+// -webkit-background-size: cover;
+// -moz-background-size: cover;
+// -o-background-size: cover;
+// background-size: cover;
+color: yellow;
+font-family: fantasy;
+overflow: hidden scroll;
 }
+
+#home {
+  background: url(backgrounds/dragon5.jpg);
+  background-size: cover;
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // -o-background-size: cover;
+  // background-size: cover;
+  color: yellow;
+  font-family: fantasy;
+  overflow: hidden scroll;
+  }
 
 
 h1 {
     text-shadow: 2px 2px red;
+}
+
+.intro {
+  background: url(backgrounds/dragon6.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .scrollable {
@@ -68,10 +92,68 @@ h1 {
   padding-right: 500px;
 }
 
-// .diceButton {
-//     background: url(images/fire.jpg);
-//     cursor:pointer;
-//     border:none;
-//     width:100px;
-//     height:100px;
-// }
+.dice_stats {
+  // padding-right: 150px;
+  background: url(images/scroll-resized.png);
+  width: 225px;
+  height: 326px;
+  color: #191970;
+  text-align: center;
+  transform: rotate(-12deg);
+
+}
+
+.dice_stats h3{
+  text-align: center;
+  padding-right: 10px;
+}
+
+.character_form {
+  padding-left: 140px;
+}
+
+.fireButton {
+    background: url(images/fireball.png);
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+    animation-name: flicker;
+    animation-duration:1s;
+    animation-delay:200ms;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes flicker{
+  0%   {transform: rotate(-1deg);}
+  20%  {transform: rotate(1deg);}
+  40%  {transform: rotate(-1deg);}
+  60%  {transform: rotate(1deg) scaleY(1.04);}
+  80%  {transform: rotate(-2deg) scaleY(0.92);}
+  100% {transform: rotate(1deg);}
+}
+
+.diceButton {
+    background: url(images/4d6.png);
+    cursor:pointer;
+    border:none;
+    width:300px;
+    height:100px;
+    animation-name: flicker;
+    animation-duration:1s;
+    animation-delay:200ms;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.diceTitle {
+  padding-left: 80px;
+  color: pink;
+}
+
+.messageBoard {
+  padding-left: 100px;
+}
