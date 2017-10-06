@@ -46,6 +46,14 @@ class Api
     end
   end
 
+  def populate_skill_info
+    Skill.all.each do |skill|
+      skill_info = JSON.parse(RestClient.get(skill.api_url))
+      skill.update(desc: skill_info["desc"][0])
+      skill.update(ability_score: skill_info["ability_score"]["name"])
+    end
+  end
+
   def populate_class_names_spells
     Spell.all.each do |spell|
       spell_info = JSON.parse(RestClient.get(spell.api_url))
