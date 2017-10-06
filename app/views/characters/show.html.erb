@@ -16,7 +16,7 @@
       <p>Join Campaign:
       <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/join_campaign", method:'patch' do %>
         <%= select_tag "character[campaign_id]", options_from_collection_for_select(Campaign.all, "id", "name") %>
-        <%= submit_tag "Join Campaign"%>
+        <%= submit_tag "", class: "terranceButton"%>
       <% end %>
     <% else %>
         <p><%= @character.name %> is not in a campaign</p>

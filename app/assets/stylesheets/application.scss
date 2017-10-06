@@ -14,6 +14,7 @@
 html {
   height: 100%;
 }
+
 body {
   min-height: 100%;
 }
@@ -24,18 +25,18 @@ a {
 }
 
 
-#main {
-background: url(backgrounds/dragon1.jpg);
-// -webkit-background-size: cover;
-// -moz-background-size: cover;
-// -o-background-size: cover;
-// background-size: cover;
-color: yellow;
-font-family: fantasy;
-overflow: hidden scroll;
-}
+// body {
+// background: url(backgrounds/dragon5.jpeg);
+// // -webkit-background-size: cover;
+// // -moz-background-size: cover;
+// // -o-background-size: cover;
+// // background-size: cover;
+// color: yellow;
+// font-family: fantasy;
+// overflow: hidden scroll;
+// }
 
-#home {
+body {
   background: url(backgrounds/dragon5.jpg);
   background-size: cover;
   // -webkit-background-size: cover;
@@ -45,6 +46,7 @@ overflow: hidden scroll;
   color: yellow;
   font-family: fantasy;
   overflow: hidden scroll;
+  font-weight: bold;
   }
 
 
@@ -147,6 +149,19 @@ h1 {
     animation-timing-function: ease-in;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+.terranceButton {
+  background: url(images/terrancebutton.png);
+  cursor:pointer;
+  border:none;
+  width:100px;
+  height:141px;
+}
+
+.terranceButton:hover {
+  transform: scaleX(3);
+  transform: rotate(-45deg);
 }
 
 .diceTitle {
