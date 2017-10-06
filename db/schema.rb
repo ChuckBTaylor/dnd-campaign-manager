@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005175610) do
+ActiveRecord::Schema.define(version: 20171006152226) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(version: 20171005175610) do
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"
     t.index ["class_name_id"], name: "index_characters_on_class_name_id"
     t.index ["race_id"], name: "index_characters_on_race_id"
+  end
+
+  create_table "characters_skills", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "skill_id"
+    t.index ["character_id"], name: "index_characters_skills_on_character_id"
+    t.index ["skill_id"], name: "index_characters_skills_on_skill_id"
   end
 
   create_table "characters_spells", force: :cascade do |t|
@@ -102,6 +109,13 @@ ActiveRecord::Schema.define(version: 20171005175610) do
     t.string "age"
     t.string "size"
     t.string "languages"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.string "ability_score"
+    t.string "api_url"
   end
 
   create_table "spells", force: :cascade do |t|

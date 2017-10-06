@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
 
 
+  resources :skills
   get '/spells/search', to: 'spells#search'
 
   root 'statics#home'

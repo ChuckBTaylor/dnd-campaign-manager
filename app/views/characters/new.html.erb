@@ -78,7 +78,13 @@
             <%= f.label :charisma %>
             <%= f.number_field :charisma %>
             <br>
-          </br>
+            <%= f.label :skills %>
+            <br>
+            <% Skill.all.each do |skill| %>
+              <%= f.label skill.name %>
+              <%= f.check_box :skill_ids, {name:'character[skill_ids][]', value: skill.name, id: skill.id}, skill.id%>
+            <% end %>
+            </br>
             <%= f.submit value: 'Save', class: 'fireButton' %>
           <% end %>
       <% end %>
