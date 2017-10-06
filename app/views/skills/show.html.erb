@@ -1,0 +1,8 @@
+<h1><%= @skill.name %></h1>
+<p>Gains stats from: <%= @skill.ability_score %></p>
+<p>Description: <%= @skill.desc %></p>
+<% if recent_character %>
+  <%= link_to "#{recent_character.name}'s page", user_character_path(recent_character.player, recent_character) %>
+  <br>
+<% end %>
+<%= link_to "Skillz index", skills_path %>

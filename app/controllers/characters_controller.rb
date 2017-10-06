@@ -101,7 +101,7 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:level, :name, :race_id, :class_name_id, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id, :skill_ids)
+    params.require(:character).permit(:level, :name, :race_id, :class_name_id, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :player_id, :campaign_id, :skill_ids => [])
   end
 
   def class_okay?(spell)

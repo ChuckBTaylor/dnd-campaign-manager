@@ -12,7 +12,7 @@
   <% if @character.campaigns.any? %>
     <h2>Campaign: <%= link_to @character.campaign.name, campaign_path(@character.campaign) %></h2>
   <% else%>
-    <% if @character.player == current_user %>
+    <% if Campaign.any? && @character.player == current_user %>
       <p>Join Campaign:
       <%= form_tag "/users/#{@character.player.id}/characters/#{@character.id}/join_campaign", method:'patch' do %>
         <%= select_tag "character[campaign_id]", options_from_collection_for_select(Campaign.all, "id", "name") %>
@@ -24,7 +24,7 @@
     </p>
   <% end %>
 </div>
-<div>
+<div class="scrollable">
   <h3>Info:</h3>
 
   Level: <%= @character.level %>
@@ -69,6 +69,22 @@
   <% end %>
   <br>
   <br>
+  Skills: (Proficiency Bonus:  <%= proficiency_bonus %>)<br>
+  <ul>
+    <% Skill.all.each do |skill| %>
+      <% output = raw_to_modifier(@character.send(ability_score_to_full_word(skill.ability_score)).to_i + @character.race.ability_bonuses[ability_score_to_index(skill.ability_score)].to_i) %>
+      <% if proficient = character_is_proficient?(skill) %>
+        <% output += proficiency_bonus %>
+      <% end %>
+      <li><%= link_to skill.name, skill_path(skill) %> - (<%= output %>)
+        <% if proficient %>
+          proficient
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <br>
+  <br>
   <% if @character.spells.any? %>
     <div class="">
       <h3>Known Spells: </h3>
@@ -100,4 +116,9 @@
       <%= link_to "Delete #{@character.name}", "/users/#{@character.player.id}/characters/#{@character.id}", method:'delete' %>
     </div>
   <% end %>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
